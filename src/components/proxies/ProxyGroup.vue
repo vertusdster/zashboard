@@ -11,7 +11,7 @@
             size="large"
           />
           <span class="text-xs text-base-content/60">
-            : {{ proxyGroup.type }} ({{ sortedProxies?.length }})
+            : {{ proxyGroup.type }} ({{ availableProxies?.length }})
           </span>
           <button
             v-if="manageHiddenGroup"
@@ -57,23 +57,25 @@
     </template>
     <template v-slot:preview>
       <ProxyPreview
-        :nodes="sortedProxies"
+        :nodes="availableProxies"
         :now="proxyGroup.now"
         :groupName="proxyGroup.name"
         @nodeclick="selectProxy(proxyGroup.name, $event)"
       />
     </template>
     <template v-slot:content>
-      <ProxyNodeGrid>
-        <ProxyNodeCard
-          v-for="node in sortedProxies"
-          :key="node"
-          :name="node"
-          :group-name="proxyGroup.name"
-          :active="node === proxyGroup.now"
-          @click="selectProxy(proxyGroup.name, node)"
-        />
-      </ProxyNodeGrid>
+      <div class="max-h-[70vh] min-h-[50vh] overflow-y-auto px-1 pb-1">
+        <ProxyNodeGrid class="h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1">
+          <ProxyNodeCard
+            v-for="node in availableProxies"
+            :key="node"
+            :name="node"
+            :group-name="proxyGroup.name"
+            :active="node === proxyGroup.now"
+            @click="selectProxy(proxyGroup.name, node)"
+          />
+        </ProxyNodeGrid>
+      </div>
     </template>
   </CollapseCard>
 </template>
@@ -102,10 +104,24 @@ import ProxyPreview from './ProxyPreview.vue'
 const props = defineProps<{
   name: string
 }>()
+
 const proxyGroup = computed(() => proxyMap.value[props.name])
-const sortedProxies = computed(() => {
-  return sortAndFilterProxyNodes(proxyGroup.value.all ?? [], props.name)
+
+// Check if a proxy is used by other groups
+const isProxyUsedByOtherGroups = (proxyName: string) => {
+  return Object.entries(proxyMap.value).some(([groupName, group]) => {
+    return groupName !== props.name && 
+           group.now === proxyName && 
+           group.type.toLowerCase() !== PROXY_TYPE.LoadBalance
+  })
+}
+
+// Filter out proxies that are used by other groups
+const availableProxies = computed(() => {
+  const allProxies = sortAndFilterProxyNodes(proxyGroup.value.all ?? [], props.name)
+  return allProxies.filter(proxy => !isProxyUsedByOtherGroups(proxy))
 })
+
 const isLatencyTesting = ref(false)
 const handlerLatencyTest = async () => {
   if (isLatencyTesting.value) return
@@ -118,6 +134,7 @@ const handlerLatencyTest = async () => {
     isLatencyTesting.value = false
   }
 }
+
 const downloadTotal = computed(() => {
   const speed = activeConnections.value
     .filter((conn) => conn.chains.includes(props.name))
