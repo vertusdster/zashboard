@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'NotoEmoji';
+  src: url('./NotoColorEmoji-flagsonly.ttf') format('truetype');
+}
+
+@layer components {
+  .card,
+  .collapse {
+    background-color: var(--fallback-b1, oklch(var(--b1) / var(--tw-bg-opacity, 1)));
+    @apply rounded-lg shadow-md;
+  }
+
+  .table tr {
+    @apply border-b-0;
+  }
+}
+
+@for $i from 0 to 100 {
+  .custom-background.custom-background-$(i) {
+    .bg-base-100,
+    .bg-base-200,
+    .bg-primary,
+    .card,
+    .collapse,
+    .table,
+    .drawer-side,
+    .tabs,
+    .btm-nav,
+    .tab.tab-active,
+    .table tbody tr {
+      --tw-border-opacity: calc($(i) / 100);
+      --tw-bg-opacity: calc($(i) / 100);
+    }
+
+    .bg-primary .latency-tag.bg-base-100 {
+      --tw-border-opacity: 1;
+      --tw-bg-opacity: 1;
+    }
+
+    .drawer-content.bg-base-200\/40 {
+      background-color: transparent;
+    }
+  }
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.tippy-box {
+  @apply z-[9999] bg-neutral text-neutral-content shadow-md;
+}
+
+.tippy-box[data-placement^='top'] > .tippy-arrow:before {
+  @apply border-t-neutral;
+}
+.tippy-box[data-placement^='right'] > .tippy-arrow:before {
+  @apply border-r-neutral;
+}
+.tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
+  @apply border-b-neutral;
+}
+.tippy-box[data-placement^='left'] > .tippy-arrow:before {
+  @apply border-l-neutral;
+}
+
+@media screen and (max-width: 768px) {
+  .slide-right-enter-active,
+  .slide-right-leave-active,
+  .slide-left-enter-active,
+  .slide-left-leave-active {
+    transition: all 0.2s ease-in-out;
+  }
+
+  .slide-left-enter-to,
+  .slide-right-enter-to {
+    width: 100vw;
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .slide-left-enter-from {
+    width: 100vw;
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  .slide-right-enter-from {
+    width: 100vw;
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  .slide-left-leave-to,
+  .slide-left-leave-from,
+  .slide-right-leave-to,
+  .slide-right-leave-from {
+    display: none;
+  }
+}
+
+div {
+  @apply scrollbar-thin;
+}
