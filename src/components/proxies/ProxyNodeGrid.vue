@@ -11,3 +11,4 @@
 import { PROXY_CARD_SIZE } from '@/constant'
 import { proxyCardSize } from '@/store/settings'
 </script>
+
