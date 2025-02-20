@@ -8,7 +8,7 @@
         isSmallCard ? 'p-1' : 'p-2',
       )
     "
-    @contextmenu.stop.prevent="handlerLatencyTest"
+
   >
     <div class="flex w-full flex-1 items-center gap-1">
       <ProxyIcon

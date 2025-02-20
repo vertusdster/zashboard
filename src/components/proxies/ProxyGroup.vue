@@ -3,7 +3,7 @@
     <template v-slot:title>
       <div
         class="relative flex items-center gap-2"
-        @contextmenu.prevent.stop="handlerLatencyTest"
+
       >
         <div class="flex flex-1 items-center gap-1">
           <ProxyName
@@ -38,7 +38,7 @@
       </div>
       <div
         class="mt-[2px] flex items-center gap-2 text-base-content/80"
-        @contextmenu.prevent.stop="handlerLatencyTest"
+
       >
         <div class="flex flex-1 items-center gap-1 text-sm">
           <template v-if="proxyGroup.now">
