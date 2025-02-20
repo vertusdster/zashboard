@@ -2,6 +2,13 @@
 
 # Changelog
 
+## [1.2.0](https://github.com/vertusdster/zashboard/compare/v1.1.0...v1.2.0) (2025-02-20)
+
+
+### Features
+
+* remove right click event ([a4aa8dd](https://github.com/vertusdster/zashboard/commit/a4aa8dd44c7babd31e27ca7f7837d37da2d54537))
+
 ## [1.1.0](https://github.com/vertusdster/zashboard/compare/v1.0.0...v1.1.0) (2025-02-20)
 
 
