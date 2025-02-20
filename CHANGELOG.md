@@ -2,6 +2,13 @@
 
 # Changelog
 
+## [1.1.0](https://github.com/vertusdster/zashboard/compare/v1.0.0...v1.1.0) (2025-02-20)
+
+
+### Features
+
+* add new feature ([88d027a](https://github.com/vertusdster/zashboard/commit/88d027a41cd176d36b7b8b0b6bbbd8620ff94e2d))
+
 ## [1.65.1](https://github.com/Zephyruso/zashboard/compare/v1.65.0...v1.65.1) (2025-02-18)
 
 
