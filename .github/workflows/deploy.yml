@@ -110,7 +110,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/zephyruso/zashboard:latest
-            ghcr.io/zephyruso/zashboard:${{ needs.release-please.outputs.tag_name }}
+            ghcr.io/vertusdster/zashboard:latest
+            ghcr.io/vertusdster/zashboard:${{ needs.release-please.outputs.tag_name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
